@@ -27,7 +27,7 @@ pipeline{
             steps{
                 echo 'this is the package job'
                 sh 'mvn package -DskipTests'
-                sleep 7
+                
             }
         }
     }
