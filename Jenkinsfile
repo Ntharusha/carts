@@ -1,32 +1,23 @@
 pipeline {
-  agent any
-  stages {
-    stage('build') {
-      steps {
-        echo 'this is build  job'
-        sh 'mvn compile'
-      }
+    agent any
+    tools {
+        maven 'Maven 3.9.12'
     }
-
-    stage('test') {
-      steps {
-        echo 'this is the test job'
-        sh 'mvn clean test'
-      }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
     }
-
-    stage('package') {
-      steps {
-        echo 'this is the package job'
-        sh 'mvn package -DskipTests'
-      }
-    }
-
-  }
-  post {
-    always {
-      echo 'this pipeline has completed...'
-    }
-
-  }
 }
